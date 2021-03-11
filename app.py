@@ -1,14 +1,12 @@
 import requests
 import sys
-import os
 import time
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt, QSize
-from  PyQt5.QtGui import *
-import json
+from PyQt5.QtGui import *
 import style
 
-API_KEY = '9bbada05362257f22ae6c1dd8222be26'
+API_KEY = '9bbada05362257f22ae6c1dd8222be26'  # only 60 requests for one minutes
 API_URL = 'https://api.openweathermap.org/data/2.5/weather'
 r = requests.get('https://api.openweathermap.org/data/2.5/weather?q=Lvov,ua&appid={}'.format(API_KEY))
 
@@ -51,6 +49,7 @@ class Main(QWidget):
         if city == "":
             self.displayLabel.setText(info)
 
+
 def displayWeather(weather):
     city = weather['name']
     country = weather['sys']['country']
@@ -68,6 +67,7 @@ def displayWeather(weather):
     sunrise = time.strftime('%H:%M:%S', sunriseTsLocal)
     sunset = time.strftime('%H:%M:%S', sunsetTsLocal)
     return 'Погода в {}-{}\nТемпература: {} °C\nАтм. тиск: {}гПа\nВологість: {}%\nШвидкість вітру: {}м/c\nПогодні умови: {}\nСхід: {}\nЗахід: {}'.format(city, country, temp, press, humidity, wind, desc, sunrise, sunset)
+
 
 def getWeather():
     global city
@@ -93,6 +93,7 @@ def main():
     APP= QApplication(sys.argv)
     window = Main()
     sys.exit(APP.exec_())
+
 
 if __name__ == '__main__':
     main()
